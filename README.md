@@ -2,6 +2,63 @@
 
 ## Primera Entrega - Backend
 
+##Dejo por aquí la consigna dada (re-escrita) para la correcta evaluacion:
+###Entrega N° 1: API de Productos y Carritos
+##Descripción General
+##Desarrollar un servidor en Node.js y Express que exponga los endpoints necesarios para gestionar productos y carritos de compra.
+##Configuración del Servidor
+##Tecnología: Node.js + Express
+##Puerto: 8080
+##Rutas principales:
+##/api/products
+##/api/carts
+##Endpoints para Productos (/api/products/)
+##Método	Ruta	Función
+##GET	/	Listar todos los productos.
+##GET	/:pid	Obtener únicamente el producto cuyo id coincida con pid.
+##POST	/	Agregar un nuevo producto.
+##Campos:
+#• id (Number/String) → autogenerado (no llega en el body).
+#• title (String)
+#• description (String)
+#• code (String)
+#• price (Number)
+#• status (Boolean)
+#• stock (Number)
+#• category (String)
+#• thumbnails (Array de Strings — rutas de imagen).
+##PUT	/:pid	Actualizar campos del producto con id = pid. No se modifica ni elimina el id.
+##DELETE	/:pid	Eliminar el producto cuyo id sea pid.
+##Endpoints para Carritos (/api/carts/)
+##Método	Ruta	Función
+##POST	/	Crear un nuevo carrito.
+##Estructura:
+#• id (Number/String) → autogenerado.
+#• products (Array de objetos — cada uno representa un producto con product y quantity).
+##GET	/:cid	Listar todos los productos en el carrito con id = cid.
+##POST	/:cid/product/:pid	Agregar un producto al carrito cid.
+#• product: solo el ID del producto.
+#• quantity: número de unidades (si ya existe en el carrito, incrementar quantity).
+##Persistencia de Datos
+##Se utilizarán archivos JSON:
+##products.json
+##carts.json
+##Acceso mediante el módulo fs.
+##Emplear la clase ProductManager (desafío anterior) y crear CartManager.
+##Formato del Entregable
+##Repositorio en GitHub con todo el proyecto.
+##Excluir la carpeta node_modules.
+##Nota
+##No se requiere interfaz gráfica. Todas las operaciones pueden probarse con Postman u otro cliente HTTP.
+
+
+
+
+
+
+
+
+
 ### Descripción
 
 Este proyecto consiste en el desarrollo de un servidor backend utilizando **Node.js** y **Express**, que implementa una API RESTful para el manejo de productos y carritos de compra. Los datos se almacenan en archivos `.json` utilizando el módulo `fs` para asegurar persistencia.
@@ -96,3 +153,4 @@ http://localhost:8080/api/carts
 **Autor:** Gabriel Rodriguez
 **Curso:** Backend - Coderhouse
 **Entrega:** Primera entrega (API con Express y persistencia en archivos)
+
