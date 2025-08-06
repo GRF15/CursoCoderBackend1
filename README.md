@@ -2,7 +2,7 @@
 
 ## Primera Entrega - Backend
 
-## Dejo por aquí la consigna dada (re-escrita) para la correcta evaluacion:
+## Dejo por aquí la consigna dada (re-escrita) para la correcta evaluacion (Criterios de evaluación: https://drive.google.com/file/d/1erfOEyRRkxFKPqxXpcuocpeP6dTyzVWg/view?usp=drive_link):
 ### Entrega N° 1: API de Productos y Carritos
 ## Descripción General
 ## Desarrollar un servidor en Node.js y Express que exponga los endpoints necesarios para gestionar productos y carritos de compra.
@@ -153,5 +153,6 @@ http://localhost:8080/api/carts
 **Autor:** Gabriel Rodriguez
 **Curso:** Backend - Coderhouse
 **Entrega:** Primera entrega (API con Express y persistencia en archivos)
+
 
 
