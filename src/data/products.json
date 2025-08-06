@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "title": "Mouse Gamer RGB",
+    "description": "Mouse ergonómico con luces RGB y 6 botones programables.",
+    "code": "MG123",
+    "price": 39.99,
+    "status": true,
+    "stock": 100,
+    "category": "periféricos",
+    "thumbnails": ["/images/mouse1.png"]
+  },
+  {
+    "id": 2,
+    "title": "Teclado Mecánico",
+    "description": "Teclado mecánico con switches rojos y retroiluminación.",
+    "code": "TK456",
+    "price": 69.99,
+    "status": true,
+    "stock": 50,
+    "category": "periféricos",
+    "thumbnails": ["/images/keyboard1.png"]
+  },
+  {
+    "id": 3,
+    "title": "Monitor LED 24''",
+    "description": "Monitor de 24 pulgadas Full HD con entrada HDMI.",
+    "code": "MN789",
+    "price": 149.99,
+    "status": true,
+    "stock": 30,
+    "category": "monitores",
+    "thumbnails": ["/images/monitor1.png"]
+  },
+  {
+    "id": 4,
+    "title": "Auriculares Bluetooth",
+    "description": "Auriculares inalámbricos con micrófono y cancelación de ruido.",
+    "code": "AU321",
+    "price": 59.99,
+    "status": true,
+    "stock": 75,
+    "category": "audio",
+    "thumbnails": ["/images/headphones1.png"]
+  },
+  {
+    "id": 5,
+    "title": "Silla Gamer",
+    "description": "Silla ergonómica ajustable con soporte lumbar.",
+    "code": "SG654",
+    "price": 199.99,
+    "status": true,
+    "stock": 20,
+    "category": "mobiliario",
+    "thumbnails": ["/images/chair1.png"]
+  },
+  {
+    "id": 6,
+    "title": "Webcam HD",
+    "description": "Cámara web 1080p con micrófono integrado.",
+    "code": "WB987",
+    "price": 29.99,
+    "status": true,
+    "stock": 60,
+    "category": "video",
+    "thumbnails": ["/images/webcam1.png"]
+  }
+]
