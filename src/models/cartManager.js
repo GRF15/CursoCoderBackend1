@@ -1,9 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const productsData = path.join(__dirname, '../data/products.json');
 const cartsData = path.join(__dirname, '../data/carts.json');
 const ProductManager = require('./productManager.js');
-const productManager = require('./productManager.js');
 
 class CartManager {
 
@@ -55,19 +53,19 @@ class CartManager {
         await this.loadCarts();
         const cartId = Number(id);
         if (!cartId || isNaN(cartId)) {
-            throw new Error('Debe ingresar un ID válido');
+            console.log('Debe ingresar un ID válido');
         }
         const cart = this.carts.find(cart => cart.id === cartId);
         if (!cart) {
-            throw new Error('Carrito no encontrado');
+            console.log('Carrito no encontrado');
         }
-        return cart;
+        return cart || null;
     }
 
     async updateProduct(cartId, productId, quantity) {
         await this.loadCarts();
         const cartIndex = this.carts.findIndex(cart => cart.id === cartId);
-        if (cartIndex === -1) throw new Error('Carrito no encontrado');
+        if (cartIndex === -1) console.log('Carrito no encontrado');
         
         const product = await ProductManager.getProductById(productId);
         if (!product) throw new Error('Producto no encontrado');
@@ -83,7 +81,7 @@ class CartManager {
             if (quantity > product.stock) {
                 throw new Error(`No hay suficiente stock para el producto ${product.title}`);
             }
-            this.carts[cartIndex].products.push({ product: productId, quantity });
+            this.carts[cartIndex].products.push({ productId: productId, quantity });
         }
 
         await this.saveCarts();
@@ -94,7 +92,7 @@ class CartManager {
         await this.loadCarts();
         const cartIndex = this.carts.findIndex(cart => cart.id === Number(id));
         if (cartIndex === -1) {
-            throw new Error('Carrito no encontrado');
+            console.log('Carrito no encontrado');
         }
         const deletedCart = this.carts.splice(cartIndex, 1)[0];
         await this.saveCarts();
@@ -107,5 +105,16 @@ class CartManager {
 let cartManager = new CartManager();
 module.exports = cartManager;
 
+// cartManager.addCart().then(cart => {
+//     console.log('Nuevo carrito creado:', cart);
+// }).catch(err => {
+//     console.error('Error al crear el carrito:', err);
+// });
+
+// cartManager.updateProduct(3, 2, 3).then(cart => {
+//     console.log('Producto actualizado en el carrito:', cart);
+// }).catch(err => {
+//     console.error('Error al actualizar el producto:', err);
+// });
 
 console.log(cartManager.getCarts());
