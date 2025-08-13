@@ -8,7 +8,9 @@
     "status": true,
     "stock": 100,
     "category": "periféricos",
-    "thumbnails": ["/images/mouse1.png"]
+    "thumbnails": [
+      "/images/mouse1.png"
+    ]
   },
   {
     "id": 2,
@@ -19,7 +21,9 @@
     "status": true,
     "stock": 50,
     "category": "periféricos",
-    "thumbnails": ["/images/keyboard1.png"]
+    "thumbnails": [
+      "/images/keyboard1.png"
+    ]
   },
   {
     "id": 3,
@@ -30,7 +34,9 @@
     "status": true,
     "stock": 30,
     "category": "monitores",
-    "thumbnails": ["/images/monitor1.png"]
+    "thumbnails": [
+      "/images/monitor1.png"
+    ]
   },
   {
     "id": 4,
@@ -41,7 +47,9 @@
     "status": true,
     "stock": 75,
     "category": "audio",
-    "thumbnails": ["/images/headphones1.png"]
+    "thumbnails": [
+      "/images/headphones1.png"
+    ]
   },
   {
     "id": 5,
@@ -52,7 +60,9 @@
     "status": true,
     "stock": 20,
     "category": "mobiliario",
-    "thumbnails": ["/images/chair1.png"]
+    "thumbnails": [
+      "/images/chair1.png"
+    ]
   },
   {
     "id": 6,
@@ -63,6 +73,8 @@
     "status": true,
     "stock": 60,
     "category": "video",
-    "thumbnails": ["/images/webcam1.png"]
+    "thumbnails": [
+      "/images/webcam1.png"
+    ]
   }
 ]
