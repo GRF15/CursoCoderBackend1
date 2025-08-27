@@ -1,152 +1,196 @@
-# Proyecto: API RESTful de Productos y Carritos
+# Proyecto: API RESTful de Productos y Carritos con WebSockets
 
-## Primera Entrega - Backend
+**Autor:** Gabriel Rodriguez
+**Curso:** Backend - Coderhouse
+**Entrega:** Segunda entrega (API con WebSockets, Handlebars y estilos)
 
+---
 
-### Descripción
+## Descripción
 
-Este proyecto consiste en el desarrollo de un servidor backend utilizando **Node.js** y **Express**, que implementa una API RESTful para el manejo de productos y carritos de compra. Los datos se almacenan en archivos `.json` utilizando el módulo `fs` para asegurar persistencia.
+Servidor backend en **Node.js + Express** que expone una API RESTful para gestionar **productos** y **carritos**, con persistencia en archivos `.json`.
+Incluye una interfaz de usuario con **Handlebars** y actualización en **tiempo real** mediante **Socket.IO**: la vista `realTimeProducts` permite agregar y eliminar productos y refleja los cambios instantáneamente en todos los clientes conectados. Los estilos están hechos con **Sass** y las notificaciones con **SweetAlert2**.
 
-### Tecnologías Utilizadas
+---
 
-* Node.js
-* Express.js
-* JavaScript ES6
-* File System (`fs`)
+## Tecnologías
 
-### Estructura de Carpetas
+* Node.js, Express
+* JavaScript (ES6)
+* Handlebars (templates)
+* Socket.IO (WebSockets)
+* File System (`fs`) para persistencia en JSON
+* Sass para estilos (`/src/sass/style.scss`)
+* SweetAlert2 para alertas
+
+---
+
+## Estructura del proyecto
 
 ```
 /src
-├── controllers/          # Lógica de negocio
+├── controllers/
 │   ├── products.controller.js
 │   └── carts.controller.js
-├── models/               # Manejo de datos con persistencia
+├── models/
 │   ├── ProductManager.js
 │   └── CartManager.js
-├── routes/               # Rutas de la API
+├── routes/
 │   ├── products.router.js
-│   └── carts.router.js
-├── data/                 # Archivos JSON persistentes
+│   ├── carts.router.js
+│   └── views.router.js
+├── data/
 │   ├── products.json
 │   └── carts.json
-├── app.js                # Configuración de la app
-└── server.js             # Inicialización del servidor
-/public                   # (Opcional) Imágenes para thumbnails
+├── views/
+│   ├── layouts/
+│   │   └── main.handlebars
+│   ├── index.handlebars
+│   └── realTimeProducts.handlebars
+├── public/
+│   ├── CSS/
+│   │   └── style.css
+│   └── js/
+│       └── client.js
+├── sass/
+│   └── style.scss
+├── app.js      // Configuración de Express, Handlebars y Socket.IO
+└── server.js   // Inicialización / levantado del servidor
 ```
 
-### Endpoints
+---
 
-#### Productos `/api/products/`
+## Funcionalidades principales
 
-* `GET /` - Listar todos los productos.
-* `GET /:pid` - Obtener un producto por ID.
-* `POST /` - Crear un nuevo producto.
-* `PUT /:pid` - Actualizar un producto por ID.
-* `DELETE /:pid` - Eliminar un producto por ID.
+* CRUD completo de **productos** (`/api/products`)
+* Gestión básica de **carritos** (`/api/carts`)
+* Vista en tiempo real `/api/views/realtimeproducts` con Socket.IO:
 
-#### Carritos `/api/carts/`
+  * Agregar productos sin recargar la página.
+  * Eliminar productos desde la interfaz.
+  * Actualización instantánea a todos los clientes conectados.
+* Estilos con **Sass**: cuadrícula 3x∞ (3 columnas responsive).
+* Notificaciones y confirmaciones con **SweetAlert2** (soporta HTML para poner el nombre en negrita).
+* Persistencia en `src/data/products.json` y `src/data/carts.json`.
 
-* `POST /` - Crear un nuevo carrito.
-* `GET /:cid` - Obtener un carrito por ID.
-* `POST /:cid/product/:pid` - Agregar un producto al carrito.
+---
 
-### Requisitos Funcionales Cumplidos
+## Endpoints
 
-* CRUD de productos y carritos.
-* Rutas separadas y bien organizadas con Express Router.
-* Persistencia de datos en archivos `.json` mediante `fs`.
-* Autogeneración de `id` para productos y carritos.
-* Manejo adecuado de errores (404, 500).
+### Productos (`/api/products`)
 
-### Cómo ejecutar el proyecto
+* `GET /api/products` — Listar todos los productos.
+* `GET /api/products/:pid` — Obtener producto por ID.
+* `POST /api/products` — Crear un producto.
+* `PUT /api/products/:pid` — Actualizar producto por ID.
+* `DELETE /api/products/:pid` — Eliminar producto por ID.
 
-1. Clonar el repositorio:
+**Ejemplo body para POST /api/products**
+
+```json
+{
+  "title": "Camiseta",
+  "description": "Camiseta 100% algodón",
+  "code": "CAM123",
+  "price": 25.99,
+  "status": true,
+  "stock": 50,
+  "category": "Ropa",
+  "thumbnails": "https://ejemplo.com/img.jpg"
+}
+```
+
+### Carritos (`/api/carts`)
+
+* `POST /api/carts` — Crear un nuevo carrito.
+* `GET /api/carts/:cid` — Obtener carrito por ID.
+* `POST /api/carts/:cid/product/:pid` — Agregar producto al carrito.
+
+### Vistas / Web
+
+* `GET /api/views/realtimeproducts` — Vista en tiempo real con Socket.IO.
+* `GET /` — Página home (estática).
+
+---
+
+## Instalación y ejecución
+
+1. Clonar el repositorio
 
 ```bash
 git clone <url-del-repo>
+cd <repo>
 ```
 
-2. Instalar dependencias:
+2. Instalar dependencias
 
 ```bash
 npm install
 ```
 
-3. Ejecutar el servidor:
+3. Ejecutar en modo desarrollo (compila Sass y reinicia con nodemon en paralelo)
 
 ```bash
-node src/server.js
+npm run dev
 ```
 
-4. La API estará disponible en:
+4. (Opcional) Ejecutar solo Sass watch
+
+```bash
+npm run sass-watch
+```
+
+5. (Opcional) Ejecutar solo nodemon watch
+
+```bash
+npm run nodemon-watch
+```
+
+6. Iniciar el servidor manualmente
+
+```bash
+npm start
+```
+
+7. Abrir en el navegador
 
 ```
-http://localhost:8080/api/products
-http://localhost:8080/api/carts
+Home:     http://localhost:8080/
+Realtime: http://localhost:8080/api/views/realtimeproducts
+API:      http://localhost:8080/api/products
 ```
-
-### Observaciones
-
-* Los datos se almacenan en `src/data/products.json` y `carts.json`.
-* Las rutas son completamente funcionales y siguen el modelo REST.
-* El proyecto está preparado para escalar hacia uso de bases de datos en futuras entregas.
 
 ---
 
-**Autor:** Gabriel Rodriguez
-**Curso:** Backend - Coderhouse
-**Entrega:** Primera entrega (API con Express y persistencia en archivos)
+## Uso rápido / pruebas
 
+1. Abre `http://localhost:8080/api/views/realtimeproducts` en **dos pestañas**.
+2. Agrega un producto desde el formulario: ambos clientes verán el nuevo producto instantáneamente.
+3. Click en **Eliminar** y confirma en la alerta de SweetAlert2: el producto desaparecerá en ambas pestañas.
 
+---
 
-## Dejo por aquí la consigna dada (re-escrita) para la correcta evaluacion (Criterios de evaluación: https://drive.google.com/file/d/1erfOEyRRkxFKPqxXpcuocpeP6dTyzVWg/view?usp=drive_link):
-### Entrega N° 1: API de Productos y Carritos
-## Descripción General
-## Desarrollar un servidor en Node.js y Express que exponga los endpoints necesarios para gestionar productos y carritos de compra.
-## Configuración del Servidor
-## Tecnología: Node.js + Express
-## Puerto: 8080
-## Rutas principales:
-## /api/products
-## /api/carts
-## Endpoints para Productos (/api/products/)
-## Método	Ruta	Función
-## GET	/	Listar todos los productos.
-## GET	/:pid	Obtener únicamente el producto cuyo id coincida con pid.
-## POST	/	Agregar un nuevo producto.
-## Campos:
-# • id (Number/String) → autogenerado (no llega en el body).
-# • title (String)
-# • description (String)
-# • code (String)
-# • price (Number)
-# • status (Boolean)
-# • stock (Number)
-# • category (String)
-# • thumbnails (Array de Strings — rutas de imagen).
-## PUT	/:pid	Actualizar campos del producto con id = pid. No se modifica ni elimina el id.
-## DELETE	/:pid	Eliminar el producto cuyo id sea pid.
-## Endpoints para Carritos (/api/carts/)
-## Método	Ruta	Función
-## POST	/	Crear un nuevo carrito.
-## Estructura:
-# • id (Number/String) → autogenerado.
-# • products (Array de objetos — cada uno representa un producto con product y quantity).
-## GET	/:cid	Listar todos los productos en el carrito con id = cid.
-## POST	/:cid/product/:pid	Agregar un producto al carrito cid.
-# • product: solo el ID del producto.
-# • quantity: número de unidades (si ya existe en el carrito, incrementar quantity).
-## Persistencia de Datos
-## Se utilizarán archivos JSON:
-## products.json
-## carts.json
-## Acceso mediante el módulo fs.
-## Emplear la clase ProductManager (desafío anterior) y crear CartManager.
-## Formato del Entregable
-## Repositorio en GitHub con todo el proyecto.
-## Excluir la carpeta node_modules.
-## Nota
-## No se requiere interfaz gráfica. Todas las operaciones pueden probarse con Postman u otro cliente HTTP.
+## Notas técnicas relevantes
 
+* **Socket.IO** está inicializado en `app.js` y también se comparte en la app (`app.set('io', io)`) para poder emitir desde rutas si se desea.
+* El cliente (`public/js/client.js`):
 
+  * Escucha `socket.on('products', ...)` para renderizar la lista.
+  * Emite `addProduct` y `deleteProduct`.
+  * Muestra alertas con **SweetAlert2** (puedes usar `html: '<strong>Nombre</strong>'` para negrita).
+* **Sass**: el archivo fuente está en `src/sass/style.scss`. Compílalo a `src/public/css/style.css`.
+* Persistencia: `ProductManager` y `CartManager` usan `fs` para leer/escribir JSON. Asegúrate de permisos de escritura en `src/data`.
+
+---
+
+## Buenas prácticas / recomendaciones
+
+* Migrar la persistencia a una base de datos (MongoDB, PostgreSQL) para producción.
+* Agregar validación y saneamiento de entradas (por ejemplo `express-validator`).
+* Añadir autenticación/autorización para las rutas que modifiquen datos.
+* Implementar paginación y filtros en la API y en la vista si la cantidad de productos crece.
+
+---
+## Licencia
+
+Proyecto para fines educativos. Puedes reutilizar y adaptar el código citando al autor.
