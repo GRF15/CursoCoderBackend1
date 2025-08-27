@@ -7,7 +7,7 @@ const productsRouter = require('./routes/products.router');
 const cartsRouter = require('./routes/carts.router');
 const viewsRouter = require('./routes/views.router');
 const productManager = require('./models/productManager');
-const e = require('express');
+
 
 const PORT = 8080;
 const app = express();
@@ -24,12 +24,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Rutas
-app.get('/', (req, res) => {
-    res.render('index', { title: 'Bienvenido al servidor' });
-});
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use('/api/views', viewsRouter);
+app.use('/', viewsRouter);
 
 // Compartir io en la app para usarlo en routers
 app.set('io', io);

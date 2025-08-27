@@ -1,0 +1,21 @@
+<!-- filepath: c:\Users\Gabii\Desktop\CursoBackend1\src\views\index.handlebars -->
+
+<h1>Bienvanido a la tienda</h1>
+
+<p>¡Funciona Handlebars!</p>
+<p>Bienvenido al servidor de productos y carritos</p>
+<p>Utiliza las rutas /api/products o /api/carts para interactuar con la API</p>
+
+<div class="productsList">
+    <h3>Nuestros productos</h3>
+     <ul id="productsUl">
+        {{#each products}}
+        <li>
+            <img src="{{thumbnails}}" alt="{{title}}" width="50">
+            <span class="productName">{{title}}</span>
+            <span class="productPrice">${{price}}</span>
+            <span class="productStock">Stock: {{stock}}</span>
+        </li>
+        {{/each}}
+    </ul>
+</div>

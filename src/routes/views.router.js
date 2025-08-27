@@ -12,4 +12,8 @@ viewsRouter.get('/realtimeproducts', async (req, res) => {
     }
 });
 
+viewsRouter.get('/', async (req, res) => {
+    const products = await ProductManager.getProducts();
+    res.render('home', { products });
+}); 
 module.exports = viewsRouter;
