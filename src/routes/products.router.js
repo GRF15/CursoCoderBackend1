@@ -1,8 +1,8 @@
 const express = require('express');
 const productManager = require('../models/productManager.js');
-const router = express.Router();
+const productsRouter = express.Router();
 
-router.get('/', async (req, res) => {
+productsRouter.get('/', async (req, res) => {
     try {
         const products = await productManager.getProducts();
         res.json(products);
@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:pid', async (req, res) => {
+productsRouter.get('/:pid', async (req, res) => {
     try {
         const product = await productManager.getProductById(parseInt(req.params.pid));
         if (!product)
@@ -23,7 +23,7 @@ router.get('/:pid', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+productsRouter.post('/', async (req, res) => {
     try {
         const { title, description, code, price, status, stock, category, thumbnails } = req.body;
         const newProduct = await productManager.addProduct(title, description, code, price, status, stock, category, thumbnails);
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.put('/:pid', async (req, res) => {
+productsRouter.put('/:pid', async (req, res) => {
     try {
         const updatedProduct = await productManager.updateProduct(parseInt(req.params.pid), req.body);
         res.json({ message: 'Producto actualizado correctamente', product: updatedProduct });
@@ -42,7 +42,7 @@ router.put('/:pid', async (req, res) => {
     }
 });
 
-router.delete('/:pid', async (req, res) => {
+productsRouter.delete('/:pid', async (req, res) => {
     try {
         const deleted = await productManager.deleteProduct(parseInt(req.params.pid));
         res.json({ message: 'Producto eliminado correctamente', product: deleted });
@@ -51,4 +51,4 @@ router.delete('/:pid', async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = productsRouter;

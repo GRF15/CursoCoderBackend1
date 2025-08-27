@@ -1,0 +1,34 @@
+<h1>Bienvanido a la tienda</h1>
+<div>
+    <h3>Agregar producto</h3>
+    <form id="addProductForm">
+        <input type="text" name="title" placeholder="Título" required>
+        <input type="text" name="description" placeholder="Descripción" required>
+        <input type="text" name="code" placeholder="Código" required>
+        <input type="number" name="price" placeholder="Precio" required>
+        <input type="text" name="status" placeholder="Estado (true/false)" required>
+        <input type="number" name="stock" placeholder="Stock" required>
+        <input type="text" name="category" placeholder="Categoría" required>
+        <input type="text" name="thumbnails" placeholder="URL imagen">
+        <button type="submit">Agregar</button>
+    </form>
+</div>
+<div class="productsList">
+    <h3>Nuestros productos</h3>
+     <ul id="productsUl">
+        {{#each products}}
+        <li>
+            <img src="{{thumbnails}}" alt="{{title}}" width="50">
+            <span class="productName">{{title}}</span>
+            <span class="productPrice">${{price}}</span>
+            <span class="productStock">Stock: {{stock}}</span>
+            <button class="deleteBtn" data-id="{{id}}">Eliminar</button>
+        </li>
+        {{/each}}
+    </ul>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/client.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+

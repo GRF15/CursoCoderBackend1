@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+body {
+  background-color: antiquewhite;
+  color: #333;
+  line-height: 1.5;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #459748;
+  margin-bottom: 30px;
+}
+
+h3 {
+  margin-bottom: 15px;
+}
+
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+form input {
+  flex: 1 1 150px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border 0.3s;
+}
+form input:focus {
+  border-color: #459748;
+  outline: none;
+}
+form button {
+  padding: 10px 20px;
+  background-color: #459748;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+form button:hover {
+  background-color: #39853c;
+}
+
+.productsList ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.productsList ul li {
+  list-style: none;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s;
+}
+.productsList ul li:hover {
+  transform: translateY(-5px);
+}
+.productsList ul li img {
+  width: 100%;
+  max-width: 150px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.productsList ul li .productName {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.productsList ul li .productPrice {
+  color: #459748;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.productsList ul li .productStock {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 10px;
+}
+.productsList ul li .deleteBtn {
+  padding: 8px 15px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.productsList ul li .deleteBtn:hover {
+  background-color: rgb(213.698630137, 43.8356164384, 26.301369863);
+}
+
+@media (max-width: 768px) {
+  form {
+    flex-direction: column;
+  }
+  .productsList {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
