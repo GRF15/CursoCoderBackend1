@@ -99,4 +99,8 @@ socket.on('error', (msg) => {
 
 socket.on('connect', () => {
     console.log('Conectado al servidor de sockets');
+<<<<<<< HEAD
 });
+=======
+}); 
+>>>>>>> d3781be (Entrega final CursoCoderBackend1)

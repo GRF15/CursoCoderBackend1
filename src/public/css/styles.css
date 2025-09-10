@@ -108,7 +108,11 @@ form button:hover {
   transition: background 0.3s;
 }
 .productsList ul li .deleteBtn:hover {
+<<<<<<< HEAD
   background-color: rgb(213.698630137, 43.8356164384, 26.301369863);
+=======
+  background-color: #a80000;
+>>>>>>> d3781be (Entrega final CursoCoderBackend1)
 }
 
 @media (max-width: 768px) {

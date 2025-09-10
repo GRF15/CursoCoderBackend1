@@ -127,7 +127,11 @@ form {
         transition: background 0.3s;
 
         &:hover {
+<<<<<<< HEAD
           background-color: darken($danger-color, 10%);
+=======
+          background-color: #a80000;
+>>>>>>> d3781be (Entrega final CursoCoderBackend1)
         }
       }
     }
