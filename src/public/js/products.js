@@ -1,4 +1,3 @@
-
 async function getOrCreateCartId() {
   let cartId = localStorage.getItem('cartId');
   if (cartId) return cartId;
@@ -16,7 +15,7 @@ async function getOrCreateCartId() {
   return cartId;
 }
 
-async function addToCart(productId, quantity = 1) {
+async function addToCart(productId, quantity = 1, productTitle = '') {
   try {
     const cartId = await getOrCreateCartId();
     const res = await fetch(`/api/carts/${cartId}/products/${productId}`, {
@@ -28,9 +27,9 @@ async function addToCart(productId, quantity = 1) {
     if (!res.ok) throw new Error(json.error || JSON.stringify(json));
     // feedback visual
     if (window.Swal) {
-      Swal.fire({ icon: 'success', title: 'Agregado', text: `Producto agregado al carrito` });
+      Swal.fire({ icon: 'success', title: 'Agregado', text: `${productTitle ? '"' + productTitle + '" ' : ''}agregado al carrito` });
     } else {
-      alert('Producto agregado al carrito');
+      alert(`${productTitle ? productTitle + ' ' : ''}agregado al carrito`);
     }
   } catch (err) {
     console.error(err);
@@ -58,6 +57,48 @@ document.addEventListener('DOMContentLoaded', () => {
     addBtn.addEventListener('click', () => {
       const pid = addBtn.dataset.pid;
       addToCart(pid);
+    });
+  }
+  // Formulario de agregar al carrito en productDetail
+  const addToCartForm = document.getElementById('addToCartForm');
+  if (addToCartForm) {
+    addToCartForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const quantity = Math.min(
+        parseInt(document.getElementById('quantity').value) || 1,
+        typeof productStock !== 'undefined' ? productStock : 1
+      );
+      // Validar stock en el backend, pero también en el frontend
+      const cartId = await getOrCreateCartId();
+      // Obtener cantidad actual en el carrito para este producto
+      let currentQty = 0;
+      try {
+        const res = await fetch(`/api/carts/${cartId}`);
+        if (res.ok) {
+          const data = await res.json();
+          const prod = (data.cart.products || []).find(p => p.product && (p.product._id === productId || p.product === productId));
+          if (prod) currentQty = prod.quantity;
+        }
+      } catch {}
+      if (currentQty + quantity > productStock) {
+        Swal.fire('Stock insuficiente', `No puedes agregar más de ${productStock} unidades en total.`, 'warning');
+        return;
+      }
+      addToCart(productId, quantity, productTitle);
+    });
+  }
+  // Botón fijo para ir al carrito
+  const goToCartBtn = document.getElementById('goToCartBtn');
+  if (goToCartBtn) {
+    goToCartBtn.addEventListener('click', async () => {
+      let cartId = localStorage.getItem('cartId');
+      if (!cartId) {
+        const res = await fetch('/api/carts', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+        const data = await res.json();
+        cartId = data.cart._id || data.cart.id || data.cart;
+        localStorage.setItem('cartId', cartId);
+      }
+      window.location.href = `/carts/${cartId}`;
     });
   }
 });

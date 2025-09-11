@@ -99,8 +99,105 @@ socket.on('error', (msg) => {
 
 socket.on('connect', () => {
     console.log('Conectado al servidor de sockets');
-<<<<<<< HEAD
 });
-=======
-}); 
->>>>>>> d3781be (Entrega final CursoCoderBackend1)
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Carrito: sumar/restar/eliminar/vaciar
+  const cartProductsList = document.getElementById('cartProductsList');
+  if (cartProductsList) {
+    cartProductsList.querySelectorAll('.increaseBtn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const li = e.target.closest('li[data-pid]');
+        if (!li) return;
+        const pid = li.getAttribute('data-pid');
+        const stock = parseInt(li.getAttribute('data-stock'));
+        let qty = parseInt(li.querySelector('.cartQty').textContent);
+        const cartId = window.location.pathname.split('/').pop();
+        if (qty < stock) {
+          const res = await fetch(`/api/carts/${cartId}/products/${pid}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ quantity: qty + 1 })
+          });
+          if (res.ok) location.reload();
+          else Swal.fire('Error', 'No se pudo aumentar la cantidad', 'error');
+        } else {
+          Swal.fire('Stock máximo', 'No puedes agregar más unidades que el stock disponible', 'info');
+        }
+      });
+    });
+    cartProductsList.querySelectorAll('.decreaseBtn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const li = e.target.closest('li[data-pid]');
+        if (!li) return;
+        const pid = li.getAttribute('data-pid');
+        let qty = parseInt(li.querySelector('.cartQty').textContent);
+        const cartId = window.location.pathname.split('/').pop();
+        if (qty > 1) {
+          const res = await fetch(`/api/carts/${cartId}/products/${pid}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ quantity: qty - 1 })
+          });
+          if (res.ok) location.reload();
+          else Swal.fire('Error', 'No se pudo disminuir la cantidad', 'error');
+        } else {
+          // Si baja a 0, eliminar el producto
+          const res = await fetch(`/api/carts/${cartId}/products/${pid}`, { method: 'DELETE' });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.message && data.message.includes('carrito eliminado')) {
+              localStorage.removeItem('cartId');
+              Swal.fire('Carrito eliminado', 'El carrito ha sido eliminado.', 'success').then(() => {
+                window.location.href = '/products';
+              });
+            } else {
+              location.reload();
+            }
+          } else {
+            Swal.fire('Error', 'No se pudo eliminar el producto', 'error');
+          }
+        }
+      });
+    });
+    cartProductsList.querySelectorAll('.removeBtn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const li = e.target.closest('li[data-pid]');
+        if (!li) return;
+        const pid = li.getAttribute('data-pid');
+        const cartId = window.location.pathname.split('/').pop();
+        const res = await fetch(`/api/carts/${cartId}/products/${pid}`, { method: 'DELETE' });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.message && data.message.includes('carrito eliminado')) {
+            localStorage.removeItem('cartId');
+            Swal.fire('Carrito eliminado', 'El carrito ha sido eliminado.', 'success').then(() => {
+              window.location.href = '/products';
+            });
+          } else {
+            location.reload();
+          }
+        } else {
+          Swal.fire('Error', 'No se pudo eliminar el producto', 'error');
+        }
+      });
+    });
+  }
+
+  // Vaciar carrito
+  const emptyCartBtn = document.getElementById('emptyCartBtn');
+  if (emptyCartBtn) {
+    emptyCartBtn.addEventListener('click', async () => {
+      const cartId = window.location.pathname.split('/').pop();
+      const res = await fetch(`/api/carts/${cartId}`, { method: 'DELETE' });
+      if (res.ok) {
+        localStorage.removeItem('cartId');
+        Swal.fire('Carrito eliminado', 'El carrito ha sido vaciado y eliminado.', 'success').then(() => {
+          window.location.href = '/products';
+        });
+      } else {
+        Swal.fire('Error', 'No se pudo vaciar el carrito', 'error');
+      }
+    });
+  }
+});

@@ -1,9 +1,17 @@
 <h1>Carrito</h1>
-<ul>
+<ul id="cartProductsList">
   {{#each cart.products}}
-    <li>
-      <strong>{{this.product.title}}</strong> - Cantidad: {{this.quantity}} - Precio: ${{this.product.price}}
+    <li data-pid="{{this.product._id}}" data-stock="{{this.product.stock}}">
+      <strong>{{this.product.title}}</strong> - 
+      <button class="decreaseBtn">-</button>
+      <span class="cartQty">{{this.quantity}}</span>
+      <button class="increaseBtn">+</button>
+      <span>Precio: ${{this.product.price}}</span>
+      <button class="removeBtn">Eliminar</button>
     </li>
   {{/each}}
 </ul>
+<button id="emptyCartBtn">Vaciar carrito</button>
 <a href="/products">Volver a productos</a>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/client.js"></script>

@@ -5,8 +5,13 @@ const Cart = require('../models/cart.model');
 
 
 // Home
-router.get('/', (req, res) => {
-  res.render('home');
+router.get('/', async (req, res) => {
+  try {
+    const products = await Product.find().lean();
+    res.render('home', { products });
+  } catch (error) {
+    res.status(500).send('Error al cargar productos en home');
+  }
 });
 
 // Vista de productos con paginación
@@ -25,15 +30,18 @@ router.get('/products', async (req, res) => {
     if (sort === 'asc') sortOption.price = 1;
     else if (sort === 'desc') sortOption.price = -1;
     const options = { page, limit, sort: sortOption, lean: true };
-    const result = await Product.paginate ? Product.paginate(filter, options) : paginateFallback(Product, filter, options);
+    const result = await paginateFallback(Product, filter, options);
     res.render('products', {
-      products: result.docs,
+      products: result.docs || [],
       totalPages: result.totalPages,
       prevPage: result.prevPage,
       nextPage: result.nextPage,
       page: result.page,
       hasPrevPage: result.hasPrevPage,
-      hasNextPage: result.hasNextPage
+      hasNextPage: result.hasNextPage,
+      prevLink: result.hasPrevPage ? `/products?page=${result.prevPage}&limit=${limit}&sort=${sort||''}&query=${query||''}` : null,
+      nextLink: result.hasNextPage ? `/products?page=${result.nextPage}&limit=${limit}&sort=${sort||''}&query=${query||''}` : null,
+      queryParams: { limit, sort, query }
     });
   } catch (error) {
     res.status(500).send('Error al cargar productos');
