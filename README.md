@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Proyecto: API RESTful de Productos y Carritos con WebSockets
 
 **Autor:** Gabriel Rodriguez
