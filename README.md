@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Proyecto: API RESTful de Productos y Carritos con WebSockets
 
 **Autor:** Gabriel Rodriguez
@@ -194,6 +194,7 @@ API:      http://localhost:8080/api/products
 ## Licencia
 
 Proyecto para fines educativos. Puedes reutilizar y adaptar el código citando al autor.
+
 
 =======
 # Proyecto: API RESTful de Productos y Carritos con WebSockets
