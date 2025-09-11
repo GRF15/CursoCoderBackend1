@@ -4,6 +4,11 @@ const Product = require('../models/product.model');
 const Cart = require('../models/cart.model');
 
 
+// Home
+router.get('/', (req, res) => {
+  res.render('home');
+});
+
 // Vista de productos con paginación
 router.get('/products', async (req, res) => {
   try {
@@ -54,6 +59,16 @@ router.get('/carts/:cid', async (req, res) => {
     res.render('cart', { cart });
   } catch (error) {
     res.status(500).send('Error al cargar carrito');
+  }
+});
+
+// Vista de productos en tiempo real
+router.get('/realtimeproducts', async (req, res) => {
+  try {
+    const products = await Product.find().lean();
+    res.render('realTimeProducts', { products });
+  } catch (error) {
+    res.status(500).send('Error al cargar productos en tiempo real');
   }
 });
 
